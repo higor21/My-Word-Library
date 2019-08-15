@@ -4,7 +4,11 @@ var mongoose = require("mongoose")
 var UserSchema = new mongoose.Schema({
     username: String,
     password: String,
-    email: String
+    email: String, 
+    words: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Word"
+    }]
 })
 
 //UserSchema.plugin(passportLocalMongoose)
