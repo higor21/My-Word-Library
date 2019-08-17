@@ -8,8 +8,10 @@ var express     = require("express"),
 
 const urlDB = "mongodb://localhost:27017/mywordsapp"
 mongoose.connect(urlDB, { useNewUrlParser: true })
+mongoose.set('useFindAndModify', false);
 
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json())
 
 seedDB()
 app.use("/", wordRoutes);
