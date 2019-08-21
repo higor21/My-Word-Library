@@ -6,7 +6,7 @@ import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import LanguageIcon from "@material-ui/icons/Language"
+import TranslateIcon from '@material-ui/icons/Translate';
 
 import { style } from "./style"
 
@@ -27,7 +27,7 @@ export default function Header () {
         <div className={classes.root}>
             <AppBar position='static'>
                 <Toolbar style={{backgroundColor: "#594690"}}>
-                    <LanguageIcon className={classes.bigIcon}/>
+                    <TranslateIcon className={classes.bigIcon}/>
                     <Typography variant='h6' className={classes.title}>
                         My Word Library
                     </Typography>
