@@ -5,6 +5,7 @@ import Tab from '@material-ui/core/Tab'
 
 import { style } from './style'
 import TabPanel from './TabPanel'
+import { Tooltip } from '@material-ui/core';
 
 export default function Tabs_(props) {
     const classes = style()
@@ -19,7 +20,9 @@ export default function Tabs_(props) {
         const contentList = props.contentList
         let i = 0;
         return contentList.map((c, index) => (
-            <Tab  key={index} value={i++} icon={c.icon} aria-label={c.ariaLabel} />
+            <Tooltip title={c.ariaLabel} placement="top">
+                <Tab  key={index} value={i++} icon={c.icon} aria-label={c.ariaLabel} />
+            </Tooltip>
         ))
     }
 

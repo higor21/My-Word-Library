@@ -7,6 +7,7 @@ import PlayArrowRoundedIcon from '@material-ui/icons/PlayArrowRounded';
 import Header from './common/template/Header/header'
 import Tabs from './common/template/Tabs/Tabs'
 import { style } from './style'
+import WordsPanel from './wordsPanel/wordsPanel'
 
 export default props => {
     const classes = style()
@@ -20,7 +21,7 @@ export default props => {
                         {
                             icon: <LocalLibraryRoundedIcon />,
                             ariaLabel: "Your Library",
-                            content: "Item One"
+                            content: <WordsPanel />
                         },
                         {
                             icon: <PlaylistAddRoundedIcon />,
