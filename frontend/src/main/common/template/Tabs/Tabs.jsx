@@ -20,8 +20,8 @@ export default function Tabs_(props) {
         const contentList = props.contentList
         let i = 0;
         return contentList.map((c, index) => (
-            <Tooltip title={c.ariaLabel} placement="top">
-                <Tab  key={index} value={i++} icon={c.icon} aria-label={c.ariaLabel} />
+            <Tooltip key={index} title={c.ariaLabel} placement="top">
+                <Tab  value={i++} icon={c.icon} aria-label={c.ariaLabel} />
             </Tooltip>
         ))
     }
