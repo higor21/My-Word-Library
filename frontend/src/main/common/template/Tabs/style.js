@@ -5,6 +5,7 @@ export const style = makeStyles(() => ({
         flexGrow: 1,
     },
     content_height: {
-        height: "80vh",
+        height: "100%",
+        minHeight: "80vh",
     }
 }))

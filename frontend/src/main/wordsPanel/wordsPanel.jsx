@@ -1,34 +1,44 @@
 import React from 'react'
 import Divider from '@material-ui/core/Divider';
+import { withStyles } from '@material-ui/styles';
 
 import SearchBar from './searchBar/searchBar'
-import { Paper, Tabs, Tab, TextField, Grid } from '@material-ui/core';
+import { TextField, Grid } from '@material-ui/core';
+import { style } from "./style"
+import WordsPanelContent from './wordsPanelContent/wordsPanelContent';
+
+
 
 class WordsPanel extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.state = {value: 0};
+        this.state = { value: 0 };
         this.handleChange = this.handleChange.bind(this);
     }
 
     handleChange(event, newValue) {
-        console.log(newValue)
-        this.setState({value: newValue});
+        this.setState({ value: newValue });
     }
-    
-    render(){
+
+    render() {
         return (
             <React.Fragment>
                 <SearchBar title_bar="Search for a specific word &nbsp;">
-                    <form noValidate autoComplete="off">
-                        <Grid container spacing={3}>
+                    <form noValidate autoComplete="off" className={this.props.classes.alignItensCenter}>
+                        <Grid
+                            spacing={3}
+                            container
+                            direction="row"
+                            justify="space-between"
+                            alignItems="center"
+                        >
                             <Grid item xs={6}>
                                 <TextField
                                     id="word"
                                     label="Word"
                                     value={""}
-                                    onChange={() => {}}
+                                    onChange={() => { }}
                                     fullWidth
                                 />
                             </Grid>
@@ -38,7 +48,7 @@ class WordsPanel extends React.Component {
                                     label="Translate of the word"
                                     placeholder="part of the translate"
                                     value={""}
-                                    onChange={() => {}}
+                                    onChange={() => { }}
                                     fullWidth
                                 />
                             </Grid>
@@ -48,7 +58,7 @@ class WordsPanel extends React.Component {
                                     label="Meaning"
                                     placeholder="write a specific text"
                                     multiline
-                                    onChange={() => {}}
+                                    onChange={() => { }}
                                     fullWidth
                                 />
                             </Grid>
@@ -57,7 +67,7 @@ class WordsPanel extends React.Component {
                                     id="standard-number"
                                     label="Quantity of examples"
                                     value={""}
-                                    onChange={() => {}}
+                                    onChange={() => { }}
                                     type="number"
                                     fullWidth
                                 />
@@ -65,11 +75,19 @@ class WordsPanel extends React.Component {
                         </Grid>
                     </form>
                 </SearchBar>
-                <br/>
-                <Divider/>
+                <br />
+                <Divider />
+                <WordsPanelContent wordsList={[
+                    {word: "listen", translations: ["escutar"], meanings: ["meanging1","meaning2"], examples: ["translation1","translation2"]},
+                    {word: "hard", translations: ["difícil"], meanings: ["meanging1","meaning2"], examples: ["translation1","translation2"]},
+                    {word: "gap", translations: ["lacuna","buraco"]/* , meanings: ["meanging1","meaning2"] */, examples: ["translation1","translation2"]},
+                    {word: "title", translations: ["título"], meanings: ["meanging1","meaning2"], examples: ["translation1","translation2"]}
+                ]}>
+                    
+                </WordsPanelContent>
             </React.Fragment>
         )
     }
 }
 
-export default WordsPanel
+export default withStyles(style)(WordsPanel)

@@ -11,7 +11,10 @@ import ClearAllIcon from '@material-ui/icons/ClearAll';
 import Tooltip from '@material-ui/core/Tooltip';
 import Divider from '@material-ui/core/Divider';
 
+import { styles } from "./style"
+
 export default function SearchBar (props) {
+    const classes = styles();
     return (
         <ExpansionPanel>
             <ExpansionPanelSummary
@@ -27,8 +30,8 @@ export default function SearchBar (props) {
             </ExpansionPanelDetails>
             <ExpansionPanelActions>
                 <Tooltip title="Clear" placement="top">
-                    <Button size="small" color="secondary">
-                        <ClearAllIcon/>
+                    <Button size="small">
+                        <ClearAllIcon className={classes.deleteColor}/>
                     </Button>
                 </Tooltip>
                 <Tooltip title="Search" placement="top">
