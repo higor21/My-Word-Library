@@ -4,12 +4,12 @@ import LocalLibraryRoundedIcon from '@material-ui/icons/LocalLibraryRounded';
 import PlaylistAddRoundedIcon from '@material-ui/icons/PlaylistAddRounded';
 import PlayArrowRoundedIcon from '@material-ui/icons/PlayArrowRounded';
 
-import Header from './common/template/Header/header'
-import Tabs from './common/template/Tabs/Tabs'
+import Header from '../common/template/Header/header'
+import Tabs from '../common/template/Tabs/Tabs'
 import { style } from './style'
-import WordsPanel from './wordsPanel/wordsPanel'
+import WordsPanel from '../wordsPanel/wordsPanel'
 
-export default props => {
+export default function App(props) {
     const classes = style()
 
     return (

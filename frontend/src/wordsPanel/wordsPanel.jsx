@@ -1,13 +1,12 @@
 import React from 'react'
 import Divider from '@material-ui/core/Divider';
 import { withStyles } from '@material-ui/styles';
+import { connect } from 'react-redux'
 
 import SearchBar from './searchBar/searchBar'
 import { TextField, Grid } from '@material-ui/core';
 import { style } from "./style"
 import WordsPanelContent from './wordsPanelContent/wordsPanelContent';
-
-
 
 class WordsPanel extends React.Component {
 
@@ -77,12 +76,7 @@ class WordsPanel extends React.Component {
                 </SearchBar>
                 <br />
                 <Divider />
-                <WordsPanelContent wordsList={[
-                    {word: "listen", translations: ["escutar"], meanings: ["meanging1","meaning2"], examples: ["translation1","translation2"]},
-                    {word: "hard", translations: ["difícil"], meanings: ["meanging1","meaning2"], examples: ["translation1","translation2"]},
-                    {word: "gap", translations: ["lacuna","buraco"]/* , meanings: ["meanging1","meaning2"] */, examples: ["translation1","translation2"]},
-                    {word: "title", translations: ["título"], meanings: ["meanging1","meaning2"], examples: ["translation1","translation2"]}
-                ]}>
+                <WordsPanelContent wordsList={[]}>
                     
                 </WordsPanelContent>
             </React.Fragment>
@@ -90,4 +84,9 @@ class WordsPanel extends React.Component {
     }
 }
 
+const mapStateToProps = state => ({wordsList: state.wordsPanel})
 export default withStyles(style)(WordsPanel)
+
+// make it using 'recompose/compose'. It has to be installed 
+//export default connect(mapStateToProps)(withStyles(style)(WordsPanel))
+//export default withStyles(style, {name: 'WordsPanel'})(connect(mapStateToProps), WordsPanel);
