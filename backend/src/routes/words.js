@@ -3,6 +3,13 @@ var express     = require("express"),
     Word        = require("../models/word"),
     User        = require("../models/user")
 
+router.get("/users", (req, res) => {
+    User.find((err, users) => {
+        if(!err)
+            res.send(users)
+    })
+})
+
 router.get("/user/:idUser/words", (req, res) => {
     User.findById(req.params.idUser).populate('words').exec((err, foundUser) => {
         if(err){

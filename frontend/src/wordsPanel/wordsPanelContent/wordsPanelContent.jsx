@@ -7,11 +7,13 @@ export default function WordsPanelContent (props) {
 
     function listCards(){
         const wordsList = props.wordsList || []
+        console.log(wordsList)
         return wordsList.map((w, index) => (
             <Grid key={index} item xl={3} md={4} sm={6} xs={12}>
                 <WordCard
-                    word={w.word} translation={w.translations[0]}
-                    translations={w.translations} meanings={w.meanings}
+                    word={w.word} translation={w.translation[0]}
+                    translations={w.translation} meanings={w.meaning}
+                    examples={w.examples}
                 />
             </Grid>
         ))

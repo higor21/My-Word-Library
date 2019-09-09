@@ -3,7 +3,9 @@ import Divider from '@material-ui/core/Divider';
 import { withStyles } from '@material-ui/styles';
 import { connect } from 'react-redux'
 import compose from 'recompose/compose'
+import { bindActionCreators } from 'redux'
 
+import { getWords } from './wordsPanelActions'
 import SearchBar from './searchBar/searchBar'
 import { TextField, Grid } from '@material-ui/core';
 import { style } from "./style"
@@ -15,6 +17,10 @@ class WordsPanel extends React.Component {
         super(props);
         this.state = { value: 0 };
         this.handleChange = this.handleChange.bind(this);
+    }
+
+    componentWillMount(){
+        this.props.getWords("5d76a5f357d8230c8c5dbce7")
     }
 
     handleChange(event, newValue) {
@@ -77,7 +83,7 @@ class WordsPanel extends React.Component {
                 </SearchBar>
                 <br />
                 <Divider />
-                <WordsPanelContent wordsList={[]}>
+                <WordsPanelContent wordsList={this.props.wordsList}>
                     
                 </WordsPanelContent>
             </React.Fragment>
@@ -85,13 +91,10 @@ class WordsPanel extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({wordsList: state.wordsPanel})
+const mapStateToProps = state => ({wordsList: state.wordsPanel.contentList})
+const mapDispatchToProps = dispatch => bindActionCreators({getWords}, dispatch)
 
 export default compose(
     withStyles(style, { name: 'WordsPanel' }),
-    connect(mapStateToProps, null)
+    connect(mapStateToProps, mapDispatchToProps)
 )(WordsPanel);
-
-// make it using 'recompose/compose'. It has to be installed 
-//export default connect(mapStateToProps)(withStyles(style)(WordsPanel))
-//export default withStyles(style, {name: 'WordsPanel'})(connect(mapStateToProps), WordsPanel);
