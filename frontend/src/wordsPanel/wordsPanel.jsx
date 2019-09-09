@@ -2,6 +2,7 @@ import React from 'react'
 import Divider from '@material-ui/core/Divider';
 import { withStyles } from '@material-ui/styles';
 import { connect } from 'react-redux'
+import compose from 'recompose/compose'
 
 import SearchBar from './searchBar/searchBar'
 import { TextField, Grid } from '@material-ui/core';
@@ -85,7 +86,11 @@ class WordsPanel extends React.Component {
 }
 
 const mapStateToProps = state => ({wordsList: state.wordsPanel})
-export default withStyles(style)(WordsPanel)
+
+export default compose(
+    withStyles(style, { name: 'WordsPanel' }),
+    connect(mapStateToProps, null)
+)(WordsPanel);
 
 // make it using 'recompose/compose'. It has to be installed 
 //export default connect(mapStateToProps)(withStyles(style)(WordsPanel))
