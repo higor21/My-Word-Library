@@ -4,22 +4,25 @@ var express     = require("express"),
     User        = require("../models/user")
 
 router.get("/users", (req, res) => {
-    User.find((err, users) => {
+    User.find({},{_id: 1},(err, users) => {
         if(!err)
             res.send(users)
     })
 })
 
 router.get("/user/:idUser/words", (req, res) => {
-    User.findById(req.params.idUser).populate('words').exec((err, foundUser) => {
+    User.findById(req.params.idUser, {words: 1, _id: 0}).populate('words').exec((err, foundUser) => {
         if(err){
             res.json(err)
         }else{
-            const search = req.query.search
+            const { search, translate, meaning, qty } = req.query
             if(foundUser && foundUser.words){
-                if(search){
-                    foundUser.words = foundUser.words.filter(e => { return e.word.includes(search) })
-                }
+                foundUser.words = foundUser.words.filter(e => {
+                    return  (search ? e.word.includes(search) : true) &&
+                        (translate ? ( e.translation ? e.translation.filter(ex => ex.includes(translate)).length !== 0 : false) : true) &&
+                        (meaning ? ( e.meaning ? e.meaning.filter(m => m.includes(meaning)).length !== 0 : false) : true) &&
+                        (qty ? ( e.examples != undefined ? e.examples.length === parseInt(qty) : false) : true)
+                })
                 res.json(foundUser.words)
             }else{
                 res.send("something is wrong")

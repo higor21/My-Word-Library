@@ -7,30 +7,86 @@ import { bindActionCreators } from 'redux'
 
 import { getWords } from './wordsPanelActions'
 import SearchBar from './searchBar/searchBar'
-import { TextField, Grid } from '@material-ui/core';
-import { style } from "./style"
 import WordsPanelContent from './wordsPanelContent/wordsPanelContent';
+import If from '../common/operator/If'
+
+import { TextField, Grid, Typography, Tooltip } from '@material-ui/core';
+
+import { style } from "./style"
 
 class WordsPanel extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { value: 0 };
+        this.state = { 
+            value: 0,
+            search: {
+                word: "",
+                translate: "",
+                meaning: "",
+                qty_examples: ""
+            }
+        };
         this.handleChange = this.handleChange.bind(this);
+        this.handleChangeAttribute = this.handleChangeAttribute.bind(this);
+        this.searchWord = this.searchWord.bind(this);
+        this.clearSearch = this.clearSearch.bind(this);
+        this.handleKeyPress = this.handleKeyPress.bind(this);
     }
 
     componentWillMount(){
-        this.props.getWords("5d76a5f357d8230c8c5dbce7")
+        this.props.getWords("5d9a8af8a8d44767666b7176")
     }
 
     handleChange(event, newValue) {
         this.setState({ value: newValue });
     }
 
+    handleChangeAttribute(event){
+        var new_search = this.state.search
+        new_search[event.target.id] = event.target.value
+        this.setState({search: new_search})
+    }
+
+    searchWord(){
+        const { word, translate, meaning, qty_examples } = this.state.search
+        this.props.getWords(
+            "5d9a8af8a8d44767666b7176",
+            word,
+            translate, 
+            meaning,
+            qty_examples
+        )
+    }
+
+    handleKeyPress(event){
+        if (event.key === 'Enter') {
+            setTimeout(() => {
+                this.searchWord()
+            }, 350)
+        }
+    }
+
+    clearSearch(){
+        this.setState({
+            search: {
+                word: "",
+                translate: "",
+                meaning: "",
+                qty_examples: ""
+            }
+        })
+    }
+
     render() {
+        const { word, translate, qty_examples, meaning } = this.state.search
         return (
             <React.Fragment>
-                <SearchBar title_bar="Search for a specific word &nbsp;">
+                <SearchBar 
+                    title_bar="Search for a specific word &nbsp;"
+                    search={this.searchWord}
+                    clear={this.clearSearch}
+                >
                     <form noValidate autoComplete="off" className={this.props.classes.alignItensCenter}>
                         <Grid
                             spacing={3}
@@ -43,8 +99,9 @@ class WordsPanel extends React.Component {
                                 <TextField
                                     id="word"
                                     label="Word"
-                                    value={""}
-                                    onChange={() => { }}
+                                    value={word}
+                                    onChange={this.handleChangeAttribute}
+                                    onKeyPress={this.handleKeyPress}
                                     fullWidth
                                 />
                             </Grid>
@@ -52,9 +109,10 @@ class WordsPanel extends React.Component {
                                 <TextField
                                     id="translate"
                                     label="Translate of the word"
+                                    value={translate}
                                     placeholder="part of the translate"
-                                    value={""}
-                                    onChange={() => { }}
+                                    onChange={this.handleChangeAttribute}
+                                    onKeyPress={this.handleKeyPress}
                                     fullWidth
                                 />
                             </Grid>
@@ -62,18 +120,21 @@ class WordsPanel extends React.Component {
                                 <TextField
                                     id="meaning"
                                     label="Meaning"
+                                    value={meaning}
                                     placeholder="write a specific text"
                                     multiline
-                                    onChange={() => { }}
+                                    onKeyPress={this.handleKeyPress}
+                                    onChange={this.handleChangeAttribute}
                                     fullWidth
                                 />
                             </Grid>
                             <Grid item xs={3}>
                                 <TextField
-                                    id="standard-number"
+                                    id="qty_examples"
+                                    value={qty_examples}
                                     label="Quantity of examples"
-                                    value={""}
-                                    onChange={() => { }}
+                                    onChange={this.handleChangeAttribute}
+                                    onKeyPress={this.handleKeyPress}
                                     type="number"
                                     fullWidth
                                 />
@@ -83,9 +144,22 @@ class WordsPanel extends React.Component {
                 </SearchBar>
                 <br />
                 <Divider />
-                <WordsPanelContent wordsList={this.props.wordsList}>
-                    
-                </WordsPanelContent>
+                <If test={this.props.wordsList && this.props.wordsList.length > 0} 
+                    optionIfTrue = {
+                        <WordsPanelContent wordsList={this.props.wordsList}/>
+                    }
+                    optionIfFalse = {
+                        <Typography
+                            align='center'
+                            variant='h6'
+                        >
+                            <img 
+                                src="../images/not_found.png" 
+                                alt="You don't have any words yet!"
+                            />
+                        </Typography>
+                    }
+                />
             </React.Fragment>
         )
     }

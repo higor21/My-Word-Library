@@ -30,12 +30,12 @@ export default function SearchBar (props) {
             </ExpansionPanelDetails>
             <ExpansionPanelActions>
                 <Tooltip title="Clear" placement="top">
-                    <Button size="small">
+                    <Button size="small" onClick={props.clear}>
                         <ClearAllIcon className={classes.deleteColor}/>
                     </Button>
                 </Tooltip>
                 <Tooltip title="Search" placement="top">
-                    <Button size="small" color="primary">
+                    <Button size="small" color="primary" onClick={props.search}>
                         <SearchIcon/>
                     </Button>
                 </Tooltip>
