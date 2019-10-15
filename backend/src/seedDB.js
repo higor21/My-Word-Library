@@ -73,16 +73,6 @@ function seedDB(){
                                         createdUser.save()
                                     }
                                 })
-
-                                /* u.words = []
-                                words.forEach(w => {
-                                    Word.create(w, (err, createdWord) => {
-                                        if(!err){
-                                            createdUser.words.push(createdWord)
-                                        }
-                                    })
-                                })
-                                createdUser.save() */
                             }
                         })
                     })

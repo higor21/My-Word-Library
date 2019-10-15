@@ -8,6 +8,7 @@ import Header from '../common/template/Header/header'
 import Tabs from '../common/template/Tabs/Tabs'
 import { style } from './style'
 import WordsPanel from '../wordsPanel/wordsPanel'
+import AddPanel from '../addPanel/addPanel'
 
 export default function App(props) {
     const classes = style()
@@ -26,7 +27,7 @@ export default function App(props) {
                         {
                             icon: <PlaylistAddRoundedIcon />,
                             ariaLabel: "Add a Word",
-                            content: "Item Two"
+                            content: <AddPanel/>
                         },
                         {
                             icon: <PlayArrowRoundedIcon />,
